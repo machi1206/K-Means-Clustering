@@ -12,11 +12,12 @@ class Point:
         return f"Point({round(self.latitude, 3)}, {round(self.longitude, 3)}) --> {self.cluster_id}"
 
 class KMeans:
-    def __init__(self, k, change_threshold, max_iterations, dataset):
+    def __init__(self, k, change_threshold, max_iterations, dataset, random_seed=None):
         self.k = k
         self.change_threshold = change_threshold
         self.max_iterations = max_iterations
         self.dataset = dataset
+        self.random_seed = random_seed
 
     def assign_points(self, centroids):
         for point in self.dataset:
@@ -46,15 +47,21 @@ class KMeans:
         return new_centroids, total_change / self.k
 
     def workflow(self):
+        if self.random_seed is not None:
+            random.seed(self.random_seed)
+        
         centroids = random.sample(self.dataset, self.k)
         change_in_cluster_assignments = float('inf')
+        
         for _ in range(self.max_iterations):
             self.assign_points(centroids)
             centroids, change_in_cluster_assignments = self.update_centroids(centroids)
-            if  change_in_cluster_assignments < self.change_threshold:
+            if change_in_cluster_assignments < self.change_threshold:
                 break
+        
         self.centroids = centroids
         return centroids
+
 
     def compute_wcss(self):
         wcss = 0
