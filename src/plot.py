@@ -65,9 +65,9 @@ def elbow_plot(telangana_data):
 
     plt.figure(figsize=(8, 5))
     plt.plot(K_range, wcss_values, 'bo-', linewidth=2, markersize=6)
-    plt.title('Silhouette Score')
+    plt.title('Elbow Plot')
     plt.xlabel('Number of clusters (k)')
-    plt.ylabel('Silhouette Score')
+    plt.ylabel('Within-Cluster Sum of Squares (WCSS)')
     plt.grid(True)
     plt.show()
 
@@ -83,9 +83,9 @@ def silhouette_plot(telangana_data):
 
     plt.figure(figsize=(8, 5))
     plt.plot(S_range, silho_values, 'bo-', linewidth=2, markersize=6)
-    plt.title('Elbow Plot')
+    plt.title('Silhouette Score')
     plt.xlabel('Number of clusters (k)')
-    plt.ylabel('Within-Cluster Sum of Squares (WCSS)')
+    plt.ylabel('Silhouette Score')
     plt.grid(True)
     plt.show()
 
