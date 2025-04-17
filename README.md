@@ -45,7 +45,7 @@ deactivate
 ```
 
 ## Program Inception
-
+Our goal is to apply K-Means Clustering on the vast dataset we are provided. The very first step we take is filtering the given `.csv` file to the state of our choice. 
 
 ## Program Analysis
 ### Structure
@@ -81,6 +81,13 @@ Our next task is to make sure the data we're considering for clustering is not o
 Once we have filtered and cleaned our data, we create a database of `Point` objects inherited from the `Point` class. We then create a model `kmeans` from the `K_Means` class and give it the attributes we defined using the hyperparameters.
 
 ## Customisables
+Our `change_threshold` variable decides the accuracy of the final centroid in our algorithm to the true centroid. Smaller the `change_threshold`, closer is the final centroid of a cluster to its true centroid. It basically dictates how small we want the change to be between consecutive centroids when we decide to stop running the algorithm.
+
+Our `max_iterations` variable decides how deeo we want our calculation to be. If we are willing to sacrifice speed and compute time for higher accuracy, we keep the `max_iterations` high.
+
+We can specify the K value for K-Means and the `plot_clusters_with_map` function will display the final cluster groups after the algorithm's due course. 
+We can also specify the range of scenarios we want to graph in our `elbow plot` and `silhouette plot`. 
+For sake of universality and convenience, we have chosen our distance function to be Euclidean.
 
 
 
