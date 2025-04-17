@@ -80,12 +80,7 @@ Our next task is to make sure the data we're considering for clustering is not o
 
 Once we have filtered and cleaned our data, we create a database of `Point` objects inherited from the `Point` class. We then create a model `kmeans` from the `K_Means` class and give it the attributes we defined using the hyperparameters.
 
-
-
-1. structure
-2. workflow
-3. customisables
-
+## Customisables
 
 
 
