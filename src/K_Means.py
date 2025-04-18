@@ -3,31 +3,31 @@ import random
 
 class Point:
     def __init__(self, latitude, longitude, cluster_id=None):
-        self.latitude = latitude
+        self.latitude = latitude 
         self.longitude = longitude
-        self.cluster_id = cluster_id
-        self.features = [self.latitude, self.longitude]
+        self.cluster_id = cluster_id # cluster it belongs to
+        self.features = [self.latitude, self.longitude] # object unique list of coordinates
 
-    def __repr__(self):
+    def __repr__(self): # what to print if print(Object) is used
         return f"Point({round(self.latitude, 3)}, {round(self.longitude, 3)}) --> {self.cluster_id}"
 
-class KMeans:
+class KMeans: 
     def __init__(self, k, change_threshold, max_iterations, dataset, random_seed=None):
         self.k = k
         self.change_threshold = change_threshold
         self.max_iterations = max_iterations
         self.dataset = dataset
-        self.random_seed = random_seed
+        self.random_seed = random_seed # customise initial centroid randomness
 
-    def assign_points(self, centroids):
+    def assign_points(self, centroids): # assign points based on euclidean distance
         for point in self.dataset:
             point.cluster_id = self.find_cluster_id(centroids, point)
 
-    def find_cluster_id(self, centroids, point):
+    def find_cluster_id(self, centroids, point): # returns the cluster id of the centroid closest to a point
         distances = [euclidean_distance(point.features, centroid.features) for centroid in centroids]
         return distances.index(min(distances))
 
-    def find_new_centroid(self, cluster_id, centroids):
+    def find_new_centroid(self, cluster_id, centroids): # finds new centroid based on cluster average
         points_in_cluster = [p for p in self.dataset if p.cluster_id == cluster_id]
         if not points_in_cluster:  
             return centroids[cluster_id]
@@ -35,7 +35,7 @@ class KMeans:
         avg_lon = np.mean([p.longitude for p in points_in_cluster])
         return Point(avg_lat, avg_lon, cluster_id)
 
-    def update_centroids(self, centroids):
+    def update_centroids(self, centroids): # updates all centroids and also keeps track of change in centroid position
         total_change = 0
         new_centroids = []
         for i in range(self.k):
@@ -47,13 +47,13 @@ class KMeans:
         return new_centroids, total_change / self.k
 
     def workflow(self):
-        if self.random_seed is not None:
+        if self.random_seed is not None: # checks if random seed is assigned or not, if not then go ahead with the seed else status quo
             random.seed(self.random_seed)
         
-        centroids = random.sample(self.dataset, self.k)
+        centroids = random.sample(self.dataset, self.k) # finds initial random centroid distribution
         change_in_cluster_assignments = float('inf')
         
-        for _ in range(self.max_iterations):
+        for _ in range(self.max_iterations): # workflow of algorithm
             self.assign_points(centroids)
             centroids, change_in_cluster_assignments = self.update_centroids(centroids)
             if change_in_cluster_assignments < self.change_threshold:
@@ -63,7 +63,7 @@ class KMeans:
         return centroids
 
 
-    def compute_wcss(self):
+    def compute_wcss(self): # find withith cluster sum of squares of given distribution
         wcss = 0
         for point in self.dataset:
             centroid = self.centroids[point.cluster_id]
@@ -71,7 +71,7 @@ class KMeans:
             wcss += distance ** 2
         return wcss
     
-    def compute_silho(self):
+    def compute_silho(self): # find silhouette score of given distribution
         silho_total = 0
         silho_count = 0
 
