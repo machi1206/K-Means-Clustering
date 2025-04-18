@@ -18,15 +18,15 @@ class KMeans:
         self.max_iterations = max_iterations
         self.dataset = dataset
 
-    def assign_points(self, centroids):
+    def assign_points(self, centroids): # assign points to clusters
         for point in self.dataset:
             point.cluster_id = self.find_cluster_id(centroids, point)
 
-    def find_cluster_id(self, centroids, point):
+    def find_cluster_id(self, centroids, point): # find cluster id of closest centroid
         distances = [euclidean_distance(point.features, centroid.features) for centroid in centroids]
         return distances.index(min(distances))
 
-    def find_new_centroid(self, cluster_id, centroids):
+    def find_new_centroid(self, cluster_id, centroids): # find cluster average point of a given cluster id
         points_in_cluster = [p for p in self.dataset if p.cluster_id == cluster_id]
         if not points_in_cluster:  
             return centroids[cluster_id]
@@ -34,7 +34,7 @@ class KMeans:
         avg_lon = np.mean([p.longitude for p in points_in_cluster])
         return Point(avg_lat, avg_lon, cluster_id)
 
-    def update_centroids(self, centroids):
+    def update_centroids(self, centroids): # update all centroids to new positions
         total_change = 0
         new_centroids = []
         for i in range(self.k):
@@ -46,7 +46,7 @@ class KMeans:
         return new_centroids, total_change / self.k
 
     def workflow(self):
-        centroids = random.sample(self.dataset, self.k)
+        centroids = random.sample(self.dataset, self.k) # initial random centroid list
         change_in_cluster_assignments = float('inf')
         for _ in range(self.max_iterations):
             self.assign_points(centroids)
