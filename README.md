@@ -45,7 +45,7 @@ deactivate
 ```
 
 ## Program Inception
-Our goal is to apply K-Means Clustering on the vast dataset we are provided. The dataset contains The very first step we take is filtering the given `.csv` file to the state of our choice. We have chosen Telangana as our sub-dataset.
+Our goal is to apply K-Means Clustering on the vast dataset we are provided. The very first step we take is filtering the given `.csv` file to the state of our choice. We have chosen Telangana as our sub-dataset.
 
 One solution that we might think of implementing to filter the data and stick to Telangana might be checking the maximum and minimum latitudes and longitudes and hard-code the filters. Although it works well enough, there might be datapoints that are within the box of our constraints but outside the state. In order to solve this problem, we use the `geopandas` library and import a `GeoJSON` file corresponding to the boundary of Telangana and its districts.
 
