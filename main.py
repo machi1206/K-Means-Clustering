@@ -1,25 +1,31 @@
 # import stuff here
 from src.K_Means import Point, KMeans
-from pre_process import load_and_filter
-from plot import plot_clusters_with_map, elbow_plot, silhouette_plot
+from src.pre_process import load_and_filter
+from src.plot import plot_clusters_with_map, elbow_plot, silhouette_plot
+import matplotlib.pyplot as plt
 
-# set the path to the geojson file you want to plot
+# set hyperparameters
+change_threshold = 0.001
+max_iterations = 5000
+
+# geojson file of state of Telangana and its districts
 geojson_file = 'src/districts.json'
 
-# filter the data
+# loading and filtering the data
 telangana_data = load_and_filter(geojson_file)
 
-# convert the data given to something we can implement K-Means to
+# converting the data to a tangible object space
 dataset = [Point(row['Latitude'], row['Longitude']) for _, row in telangana_data.iterrows()]
 
-kmeans = KMeans(k=3, change_threshold=0.001, max_iterations=5000, dataset=dataset)
+# workflow of algorithm
+kmeans = KMeans(k=5, change_threshold=change_threshold, max_iterations=max_iterations, dataset=dataset)
 centroids = kmeans.workflow()
 
-# plot the data onto the map selected
-plot_clusters_with_map(dataset, centroids, india_geojson=geojson_file)
+# plotting data on the map selected
+plot_clusters_with_map(dataset, centroids, telangana_geojson=geojson_file)
 
-# display the elbow plot
 elbow_plot(telangana_data)
 
-# display the silhouette plot
 silhouette_plot(telangana_data)
+
+plt.show()
