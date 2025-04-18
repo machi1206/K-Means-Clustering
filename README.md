@@ -73,7 +73,7 @@ Below is the Silhouette Score Plot of our filtered dataset. We can with reasonab
 
 One would expect that the number of optimal clusters to be the number of districts in Telangana (which is 9) but we need to take into account that during our filtering process, we have discarded a lot of "useful" data which would have helped us get a better accurate clustering. 
 
-Albeit `K=3` provides little to no information about the distribution of the data, upon checking for possible good candidates, we can also settle on `K=5`. It's position in the Elbow Plot is similar to that of `K=3` and its Silhouette Score is the second highest among all. It is also visually satisfactory. Upon further research, Telangana does seem to have 6 blocks based on cultural and logistic similarities which is slightly encouraging.
+Albeit `K=3` is optimal according to the data, it provides little to no information about the distribution of the dat. Upon checking for possible good candidates, we can also settle on `K=5`. It's position in the Elbow Plot is similar to that of `K=3` and its Silhouette Score is the second highest among all. It is also visually satisfactory. Upon further research, Telangana does seem to have 6 blocks based on cultural and logistic similarities which is slightly encouraging.
 
 ![alt-text](https://github.com/machi1206/K-Means-Clustering/blob/main/plots/K_equals_5.png)
 
