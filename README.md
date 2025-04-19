@@ -44,6 +44,8 @@ You can deactivate the virtual environment by running the following in the same 
 deactivate
 ```
 
+**On some systems, a RuntimeWarning pops up while running the program, please note that the program works without any errors and the results will still show. You can completely ignore the warning displayed.**
+
 ## Program Inception
 Our goal is to apply K-Means Clustering on the vast dataset we are provided. The very first step we take is filtering the given `.csv` file to the state of our choice. We have chosen Telangana as our sub-dataset.
 
